@@ -18,4 +18,9 @@ let UserSchema = new Schema({
         minlength: 1,
         maxlength: 15
     }
-})
+    //list of merchandise selling by user
+    //list of merchandise bought by user
+    //list of merchandise favorited
+});
+
+module.exports = mongoose.model('User', UserSchema);
