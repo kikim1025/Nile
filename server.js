@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
+//require('./routes/htmlRoutes')(app);
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/nile_db';
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
