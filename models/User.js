@@ -17,10 +17,32 @@ let UserSchema = new Schema({
         required: 'Password is required',
         minlength: 1,
         maxlength: 15
-    }
-    //list of merchandise selling by user
-    //list of merchandise bought by user
-    //list of merchandise favorited
+    },
+    selling: [{ //list of merchandise selling by user
+        type: Schema.Types.ObjectId,
+        ref: 'Merchandise',
+    }],
+    bought: [{ //list of merchandise bought by user
+        type: Schema.Types.ObjectId,
+        ref: 'Merchandise',
+    }],
+    favorited: [{ //list of merchandise favorited by user
+        type: Schema.Types.ObjectId,
+        ref: 'Merchandise',
+    }]
+});
+
+// Encrypt password before saving
+UserSchema.pre('save', function(next) {
+    let user = this;
+    bcrypt.hash(user.password, 10)
+    .then(function(hashed) {
+        user.password = hashed;
+        next();        
+    })
+    .catch(function(err) {
+        res.json({status: 'error', message: err});
+    });
 });
 
 module.exports = mongoose.model('User', UserSchema);

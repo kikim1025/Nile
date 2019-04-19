@@ -16,8 +16,13 @@ let MerchandiseSchema = new Schema({
         minlength: 1,
         maxlength: 300
     },
-    //number left
-    user: {
+    stock: {
+        type: Number,
+        required: 'Stock is required',
+        min: 0,
+        max: 999
+    },
+    owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
     }    
