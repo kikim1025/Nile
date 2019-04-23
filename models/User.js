@@ -7,7 +7,7 @@ let UserSchema = new Schema({
         type: String,
         trim: true,
         unique: true,
-        required: 'Username is required',
+        required: 'Email is required',
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Wrong email format']
     },
     username: { // name to be displayed
