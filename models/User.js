@@ -3,7 +3,14 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-    username: {
+    email: {
+        type: String,
+        trim: true,
+        unique: true,
+        required: 'Username is required',
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Wrong email format']
+    },
+    username: { // name to be displayed
         type: String,
         trim: true,
         unique: true,
