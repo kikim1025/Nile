@@ -1,9 +1,9 @@
-const User = require('../models/User');
-const Merchandise = require('../models/Merchandise');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+import User from '../models/User';
+import Merchandise from '../models/Merchandise';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-module.exports = function(app) {
+export default function(app) {
 
 // API routes for User ----------
 

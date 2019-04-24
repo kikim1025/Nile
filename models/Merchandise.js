@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema } from 'mongoose';
 
 let MerchandiseSchema = new Schema({
     title: {
@@ -29,4 +28,4 @@ let MerchandiseSchema = new Schema({
     }    
 });
 
-module.exports = mongoose.model('Merchandise', MerchandiseSchema);
+export default mongoose.model('Merchandise', MerchandiseSchema);
