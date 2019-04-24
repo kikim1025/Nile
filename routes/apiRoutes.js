@@ -18,6 +18,12 @@ module.exports = function(app) {
         });        
     });
 
+    // Logs-in the user, sending back the JWT token
+    // Uses the authJWT middleware function
+    app.get('/api/login', function(req, res) {
+
+    });
+
     // Create a User
     // need to add JWT login after
     app.post('/api/user', function (req, res) {
@@ -33,6 +39,8 @@ module.exports = function(app) {
             }
         });
     });
+
+    
 
     // Deleting function maybe.
     // need to think about removing all merchandise by user as well on deleting User
