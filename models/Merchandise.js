@@ -5,14 +5,14 @@ let MerchandiseSchema = new Schema({
     title: {
         type: String,
         trim: true,
-        required: 'Username is required',
+        required: 'Merchandise name is required',
         minlength: 1,
         maxlength: 15
     },
     description: {
         type: String,
         trim: true,
-        required: 'Password is required',
+        required: 'Description is required',
         minlength: 1,
         maxlength: 300
     },
@@ -24,7 +24,8 @@ let MerchandiseSchema = new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        required: 'Owner is required',
+        ref: 'User'
     }    
 });
 
