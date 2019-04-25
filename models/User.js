@@ -1,26 +1,27 @@
-import { Schema } from 'mongoose';
-import bcrypt from 'bcryptjs';
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
     email: { // used for login
         type: String,
         trim: true,
         unique: true,
-        required: 'Email is required',
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/, 'Wrong email format']
+        required: true,
+        match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,
     },
     username: { // name to be displayed
         type: String,
         trim: true,
         unique: true,
-        required: 'Username is required',
+        required: true,
         minlength: 1,
         maxlength: 15
     },
     password: { 
         type: String,
         trim: true,
-        required: 'Password is required',
+        required: true,
         minlength: 1,
         maxlength: 15
     },
@@ -51,4 +52,4 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-export default mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

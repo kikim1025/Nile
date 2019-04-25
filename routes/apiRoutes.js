@@ -1,14 +1,14 @@
-import bcrypt from 'bcryptjs';
-import User from '../models/User';
-import Merchandise from '../models/Merchandise';
-import { signJWT, decodeJWT } from './functions/functions'
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const Merchandise = require('../models/Merchandise');
+const functions = require('../functions/functions');
 
-export default function(app) {
+module.exports = function(app) {
 
 //---------- API routes for User ------------------------------
 
     // Get Users' username data
-    app.get('/api/users', function(req, res) {
+    app.get('/api/user', function(req, res) {
         User.find({}, 'username')
         .then(function (data) {
             res.json({ status: 200, data: data, message: 'All usernames retrieved successfully' });
@@ -26,17 +26,19 @@ export default function(app) {
             if (!data) {
                 res.json({ status: 401, message: 'No such user or bad request format' });
             } else {
-                bcrypt.compare(req.body.password, data.password)
-                .then(function(decrypted) {
-                    if (!decrypted) {
-                        res.json({ status: 401, message: 'Wrong password' });
-                    } else {
-                        // make makeJWT middleware?
-                        const token = jwt.sign({ id: data.id }, app.get('JWTKey'), { expiresIn: '1hr' });
-                        res.json({ status: 200, data: { id: data.id, username: data.username, token: token }, message: 'User logged in succesfully' });                   
-                    }
-                });
-            }
+                if (req.body.password) {
+                    bcrypt.compare(req.body.password, data.password)
+                    .then(function(decrypted) {
+                        if (!decrypted) {
+                            res.json({ status: 401, message: 'Wrong password' });
+                        } else {
+                            functions.signJWT(data.id, data.username, app, res);
+                        };
+                    });
+                } else {
+                    res.json({ status: 401, message: 'Stop using API and use the website to login u hacker' });
+                };
+            };
         })
         .catch(function(err) {
             res.json({ status: 500, message: err });
@@ -47,16 +49,16 @@ export default function(app) {
     app.post('/api/user', function (req, res) {
         User.create(req.body)
         .then(function (data) {
-            res.json({ status: 200, data: data.username, message: 'User created successfully' });
+            functions.signJWT(data.id, data.username, app, res);
         })
         .catch(function (err) {
             if (err.name === 'MongoError') { 
                 // errors resulting from schema specification are handled here
                 // only really trigger if someone uses API to create user, as client code enforces specific input
-                res.json({ status: 403, message: 'Please use the website to create user...' });
+                res.json({ status: 401, message: 'Please use the website to create user...' });
             } else { 
                 res.json({ status: 500, message: err });
-            }
+            };
         });
     });
 
