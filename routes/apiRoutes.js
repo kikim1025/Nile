@@ -65,10 +65,20 @@ module.exports = function(app) {
     
 
     // Deleting function maybe.
-    // need to think about removing all merchandise by user as well on deleting User
+    // need to think about deleting merchandise by user as well on deleting User
 
 
 //---------- API routes for Merchandise ------------------------------
-    
+    // Get Merchandise data
+    // maybe put limit for retrieval?
+    app.get('/api/merchandise', function(req, res) {
+        Merchandise.find()
+        .then(function (data) {
+            res.json({ status: 200, data: data, message: 'All merchandise retrieved successfully' });
+        })
+        .catch(function (err) {
+            res.json({ status: 500, message: err });
+        });        
+    });
 
 };
