@@ -1,7 +1,8 @@
-import User from '../models/User';
-import Merchandise from '../models/Merchandise';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import User from '../models/User';
+import Merchandise from '../models/Merchandise';
+import { decodeJWT } from './functions/middlewares'
 
 export default function(app) {
 
