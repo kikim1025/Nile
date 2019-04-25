@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
 import Merchandise from '../models/Merchandise';
-import { decodeJWT } from './functions/middlewares'
+import { signJWT, decodeJWT } from './functions/functions'
 
 export default function(app) {
 
@@ -45,7 +44,6 @@ export default function(app) {
     });
 
     // Create a User
-    // need to add JWT login after
     app.post('/api/user', function (req, res) {
         User.create(req.body)
         .then(function (data) {

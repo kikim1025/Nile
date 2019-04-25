@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
+export const signJWT
+
 // Middleware function to decode and authenticate JWT tokens
 // After decoding JWT token, look through User model to find matching decoded.id
 // Then the decoded.id will be included in the request body, to be passed to next() 
